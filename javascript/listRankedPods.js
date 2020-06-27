@@ -6,7 +6,7 @@ kc.loadFromFile("/home/emilien/.kube/config.bolt-us-central-1"); // change the l
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 (async () => {
-    const podsInMinecraftNamespace = (await k8sApi.listNamespacedPod('minecraft')).body;
-    const rankedPodsInMinecraftNamespace = podsInMinecraftNamespace.items.filter(pod => pod.metadata.labels.app === "ranked");
-    console.log(rankedPodsInMinecraftNamespace);
+    const rankedLabel = "app=ranked";
+    const rankedPodsInMinecraftNamespace = (await k8sApi.listNamespacedPod('minecraft', undefined, undefined, undefined, undefined, rankedLabel)).body;
+    console.log(rankedPodsInMinecraftNamespace.items);
 })();
