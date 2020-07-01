@@ -1,6 +1,7 @@
 # Description
 This is a basic setup of [DockerizedCraft](https://github.com/DockerizedCraft/Core) on Docker (without Kubernetes).   
 When finishing this quick tutorial you will be able to hack on DockerizedCraft.
+The Dockerizedcraft documentation is here: https://github.com/DockerizedCraft/Core#dockerized-craft---core
 
 # Tutorials
 ## How to setup DockerizedCraft

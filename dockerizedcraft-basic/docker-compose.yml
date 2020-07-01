@@ -7,7 +7,7 @@ services:
     ports:
       - 25565:25577
     volumes:
-      # /thelocation/whereyourplugin/islocated.jar:/plugins/yourplugin.jar
+      #- /thelocation/whereyourplugin/islocated.jar:/plugins/yourplugin.jar
       - ./DockerizedCraft.jar:/plugins/DockerizedCraft.jar
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
