@@ -14,9 +14,14 @@ public class ListRankedPods {
 
             // Get pods with label app and with the value ranked
             PodList list = client.pods().inNamespace("minecraft").withLabel("app", "ranked").list();
+            
             for (Pod item : list.getItems()) {
+                // Getting the pod name
                 System.out.println(item.getMetadata().getName());
             }
+
+            // Close the kubernetes client (we can't reuse it after that) - Optional because the library close it itself
+            client.close();
         } catch (KubernetesClientException exception) {
             System.out.println(exception);
         }

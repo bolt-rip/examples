@@ -14,11 +14,16 @@ public class ModifyLabelOfPod {
 
             // Get pods with label app and with the value ranked
             PodList list = client.pods().inNamespace("minecraft").withLabel("app", "ranked").list();
+
             for (Pod item : list.getItems()) {
                 // TODO: (For unixfox) Avoid getting twice the pod object
+                // Getting the pod name and modifying its label
                 client.pods().inNamespace("minecraft").withName(item.getMetadata().getName()).edit().editMetadata()
                         .addToLabels("occupied", "true").endMetadata().done();
             }
+
+            // Close the kubernetes client (we can't reuse it after that) - Optional because the library close it itself
+            client.close();
         } catch (KubernetesClientException exception) {
             System.out.println(exception);
         }

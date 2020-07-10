@@ -13,7 +13,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 public class DeployPrivateServer {
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) {
         try {
             // Initialize the Kubernetes client library
             KubernetesClient client = new DefaultKubernetesClient();
@@ -23,6 +23,7 @@ public class DeployPrivateServer {
             CustomResourceDefinitionContext privateSrvCrdContext = new CustomResourceDefinitionContext.Builder()
                     .withName("helmreleases.helm.fluxcd.io").withGroup("helm.fluxcd.io").withScope("Namespaced")
                     .withVersion("v1").withPlural("helmreleases").build();
+
             // Load the helmrelease from a file - Good because no hardcoding
             Map<String, Object> helmReleaseObjectFromYAML = client.customResource(privateSrvCrdContext)
                     .load(new FileInputStream(new File("src/main/resources/DeployPrivateServer.yaml")));
@@ -42,8 +43,14 @@ public class DeployPrivateServer {
 
             // Close the kubernetes client (we can't reuse it after that) - Optional because the library close it itself
             client.close();
-        } catch (KubernetesClientException exception) {
-            System.out.println(exception);
+        } catch (KubernetesClientException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }
