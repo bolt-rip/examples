@@ -1,7 +1,7 @@
 const k8s = require('@kubernetes/client-node');
 
 const kc = new k8s.KubeConfig();
-kc.loadFromFile("/home/emilien/.kube/config.bolt-indicado"); // change the location to your kubeconfig file
+kc.loadFromFile("/home/emilien/.kube/config"); // change the location to your kubeconfig file
 
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 

@@ -12,10 +12,14 @@ const k8sApi = kc.makeApiClient(k8s.CustomObjectsApi);
         const numberOfCurrentReplicas = scaleStatusBody.status.replicas;
         console.log(numberOfCurrentReplicas);
 
-        const headers = { 'content-type': 'application/merge-patch+json' }; //this tell to k8s to merge the new changes with the current changes
-        const bodyPatch = { "spec": { "replicas": numberOfCurrentReplicas + 1 } }; //basically add one number to the current amount of replicas
+        //this tell to k8s to merge the new changes with the current changes
+        const headers = { 'content-type': 'application/merge-patch+json' };
+        //basically add one number to the current amount of replicas
+        const bodyPatch = { "spec": { "replicas": numberOfCurrentReplicas + 1 } };
+
+        // send a scale patch to the kruise controller
         const scaleUpStatusBody = (await k8sApi.patchNamespacedCustomObjectScale("apps.kruise.io", "v1alpha1", "minecraft", "clonesets", "ranked", bodyPatch,
-        undefined, undefined, undefined, { headers })).body; // send a scale patch to the kruise controller
+        undefined, undefined, undefined, { headers })).body;
         console.log(scaleUpStatusBody);
 
     } catch (error) {
