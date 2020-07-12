@@ -29,21 +29,29 @@ public class DeployPrivateServer {
                     .load(new FileInputStream(new File("src/main/resources/DeployPrivateServer.yaml")));
 
             // Load the helmrelease as a RAW json - Not good because hardcoding
-            String helmReleaseObjectFromRAWJson = "{" + "\"metadata\": {" + "\"name\": \"podinfo\"" + "},"
-                    + "\"apiVersion\": \"helm.fluxcd.io/v1\"," + "\"kind\": \"HelmRelease\"," + "\"spec\": {"
-                    + "\"chart\": {" + "\"repository\": \"https://stefanprodan.github.io/podinfo\","
-                    + "\"name\": \"podinfo\"," + "\"version\": \"3.2.0\"" + "}" + "}" + "}";
+            String helmReleaseObjectFromRAWJson = "{\"metadata\":{\"name\":\"indicado\"},\"apiVersion\":\"helm.fluxcd.io/v1\","
+                    + "\"kind\":\"HelmRelease\",\"spec\":{\"chart\":{\"path\":\"charts/privateserver\",\"ref\":\"master\",\"git\""
+                    + ":\"git@github.com:bolt-rip/k8s\"},\"values\":{\"operators\":\"notch:jeb_\",\"maxPlayers\":20}}}";
 
-            // Create a JSONObject in order to programmatically add a server name, operator name and so on.
+            // Create a JSONObject in order to programmatically add a server name, operator
+            // name and so on.
             JSONObject helmReleaseJSONObject = new JSONObject(helmReleaseObjectFromYAML);
-            helmReleaseJSONObject.getJSONObject("metadata").put("name", "indicado");
+            System.out.println(helmReleaseJSONObject);
+            helmReleaseJSONObject.getJSONObject("metadata").put("name", "notch");
+            // it is needed to change it twice because without that the server name would be "minecraft-notch"
+            // more info about that in https://docs.fluxcd.io/projects/helm-operator/en/stable/references/helmrelease-custom-resource/
+            helmReleaseJSONObject.getJSONObject("metadata").put("releaseName", "notch");
+            helmReleaseJSONObject.getJSONObject("spec").getJSONObject("values").put("operators", "notch");
 
             // Send the JSON Object to the k8s API
             client.customResource(privateSrvCrdContext).create("minecraft", helmReleaseJSONObject.toString());
 
-            // Close the kubernetes client (we can't reuse it after that) - Optional because the library close it itself
+            // Close the kubernetes client (we can't reuse it after that) - Optional because
+            // the library close it itself
             client.close();
-        } catch (KubernetesClientException e) {
+        } catch (
+
+        KubernetesClientException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
