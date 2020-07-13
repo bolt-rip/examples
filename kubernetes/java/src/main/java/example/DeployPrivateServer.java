@@ -36,7 +36,7 @@ public class DeployPrivateServer {
             // Create a JSONObject in order to programmatically add a server name, operator
             // name and so on.
             JSONObject helmReleaseJSONObject = new JSONObject(helmReleaseObjectFromYAML);
-            helmReleaseJSONObject.getJSONObject("metadata").put("name", "notcho");
+            helmReleaseJSONObject.getJSONObject("metadata").put("name", "notch");
             // it is needed to change it twice because without that the server name would be "minecraft-notch"
             // more info about that in https://docs.fluxcd.io/projects/helm-operator/en/stable/references/helmrelease-custom-resource/
             helmReleaseJSONObject.getJSONObject("spec").put("releaseName", "notch");
