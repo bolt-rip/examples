@@ -40,7 +40,7 @@ public class DeployPrivateServer {
             // it is needed to change it twice because without that the server name would be "minecraft-notch"
             // more info about that in https://docs.fluxcd.io/projects/helm-operator/en/stable/references/helmrelease-custom-resource/
             helmReleaseJSONObject.getJSONObject("spec").put("releaseName", "notch");
-            helmReleaseJSONObject.getJSONObject("spec").getJSONObject("values").put("operators", "notch");
+            helmReleaseJSONObject.getJSONObject("spec").getJSONObject("values").getJSONObject("config").put("operators", "notch");
 
             // Send the JSON Object to the k8s API
             client.customResource(privateSrvCrdContext).create("minecraft", helmReleaseJSONObject.toString());
