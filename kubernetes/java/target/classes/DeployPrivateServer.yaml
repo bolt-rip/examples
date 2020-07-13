@@ -2,8 +2,8 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: indicado
-  releaseName: indicado
 spec:
+  releaseName: indicado
   chart:
     git: git@github.com:bolt-rip/k8s
     ref: master
