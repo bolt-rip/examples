@@ -4,6 +4,7 @@ metadata:
   name: indicado
 spec:
   releaseName: indicado
+  wait: true
   chart:
     git: git@github.com:bolt-rip/k8s
     ref: master
