@@ -10,4 +10,7 @@ spec:
     path: charts/privateserver
   values:
     operators: "notch:jeb_"
-    maxPlayers: 20
+    # this value is commented because the default value is set in server.properties and it's better to modify it through the code if needed to change it
+    #maxPlayers: 20
+    # this value is commented because the default value is already 10 and it's better to modify it through the code if needed to change it
+    #downScalerTimeInMinutes: 10
