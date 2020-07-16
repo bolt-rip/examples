@@ -1,9 +1,8 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: indicado
+  name: mitchiii--server
 spec:
-  releaseName: indicado
   wait: true
   chart:
     git: git@github.com:bolt-rip/k8s
@@ -11,6 +10,7 @@ spec:
     path: charts/privateserver
   values:
     config:
+      #serverName: "mitchiii_"
       operators: "notch:jeb_"
       # this value is commented because the default value is set in server.properties and it's better to modify it through the code if needed to change it
       #maxPlayers: 20
