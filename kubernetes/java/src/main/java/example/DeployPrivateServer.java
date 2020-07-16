@@ -38,7 +38,7 @@ public class DeployPrivateServer {
             // Create a JSONObject in order to programmatically add a server name, operator
             // name and so on.
             JSONObject helmReleaseJSONObject = new JSONObject(helmReleaseObjectFromYAML);
-            helmReleaseJSONObject.getJSONObject("metadata").put("name", username.toLowerCase().replaceAll("_", "-") + "-server");
+            helmReleaseJSONObject.getJSONObject("metadata").put("name", "private-" + username.toLowerCase().replaceAll("_", "-") + "-server");
             helmReleaseJSONObject.getJSONObject("spec").getJSONObject("values").getJSONObject("config").put("serverName", username);
             helmReleaseJSONObject.getJSONObject("spec").getJSONObject("values").getJSONObject("config").put("operators", username);
 
